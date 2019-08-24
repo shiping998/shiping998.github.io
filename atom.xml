@@ -6,7 +6,7 @@
   <link href="/atom.xml" rel="self"/>
   
   <link href="http://shiping998.github.io/"/>
-  <updated>2019-08-24T07:26:53.470Z</updated>
+  <updated>2019-08-24T08:26:17.166Z</updated>
   <id>http://shiping998.github.io/</id>
   
   <author>
@@ -15,6 +15,28 @@
   </author>
   
   <generator uri="http://hexo.io/">Hexo</generator>
+  
+  <entry>
+    <title>博客重启</title>
+    <link href="http://shiping998.github.io/2019/08/24/new-post/"/>
+    <id>http://shiping998.github.io/2019/08/24/new-post/</id>
+    <published>2019-08-24T08:07:41.000Z</published>
+    <updated>2019-08-24T08:26:17.166Z</updated>
+    
+    <content type="html"><![CDATA[<p>今天看我的github，发现博客近四年没有更新了。经过四年，已经硕士毕业了，经过了很多事，现在意识到还应该继续保持对技术的热爱，更好地积累沉淀自己。为此有必要重启博客。</p><p>按照之前自己写的教程和网上的文档，重启了博客。发现现在弄这些比以前简单了很多，背后的原理也了解了不少，看来自己还是有成长的，只是相对互联网业成长还是慢。现在微信公众号等自媒体更加流程，博客相对有些暗淡。不管怎样，希望借助博客重启，重拾初心。</p>]]></content>
+    
+    <summary type="html">
+    
+      
+      
+        &lt;p&gt;今天看我的github，发现博客近四年没有更新了。经过四年，已经硕士毕业了，经过了很多事，现在意识到还应该继续保持对技术的热爱，更好地积累沉淀自己。为此有必要重启博客。&lt;/p&gt;
+&lt;p&gt;按照之前自己写的教程和网上的文档，重启了博客。发现现在弄这些比以前简单了很多，背后的原理也
+      
+    
+    </summary>
+    
+    
+  </entry>
   
   <entry>
     <title>免流量上网之西工大的猫</title>
