@@ -419,7 +419,7 @@
                   <i class="fa fa-calendar-check-o"></i>
                 </span>
                 <span class="post-meta-item-text">更新于</span>
-                <time title="修改时间：2019-08-24 15:26:53" itemprop="dateModified" datetime="2019-08-24T15:26:53+08:00">2019-08-24</time>
+                <time title="修改时间：2019-08-24 20:26:54" itemprop="dateModified" datetime="2019-08-24T20:26:54+08:00">2019-08-24</time>
               </span>
             
           
@@ -449,74 +449,15 @@
 
       
           <p>我学校的校园网按10元6G收费，超出后3元1G，挺贵的。而ipv6的流量确实不计费的，国内的教育网都有ipv6，可以用来免费上网。效果肯定不如收费模式，但是还算比较稳定。</p>
-<h2 id="基本思路"><a href="#基本思路" class="headerlink" title="基本思路"></a>基本思路</h2><p>基本思路就是利用在服务器上搭建shadowsocks，本地填入服务器的ipv6地址，从而使得上网的流量全部走ipv6，来免流量上网。而国内的VPS基本没有ipv6，所以只能拿境外的服务器做代理，顺便有了一个<em>番羽墙</em>特效。</p>
-<h2 id="注册Digitalocean"><a href="#注册Digitalocean" class="headerlink" title="注册Digitalocean"></a>注册Digitalocean</h2><p>对于学生来说，为了节省费用，建议先认证github education，可以得到digitalocean的100美金优惠券。digitalocean最便宜的是5美元的一个月，自己只要花5美元就能激活账户，加上github送的100美金，差不多可以用两年。进入我的<a href="https://www.digitalocean.com/?refcode=c7f58a8dc827" target="_blank" rel="noopener">推广链接注册</a>的话，可以多获得10美元的优惠券。</p>
-<p>认证github education的方法请参考<a href="http://www.caoqq.net/github-pack.html" target="_blank" rel="noopener">学生免费享受 GitHub 提供的开发包</a>。</p>
-<h2 id="安装shadowsocks"><a href="#安装shadowsocks" class="headerlink" title="安装shadowsocks"></a>安装shadowsocks</h2><p>目前Shadowsocks服务器端拥有四种语言版本，分别是：</p>
-<ul>
-<li>Shadowsocks-Python</li>
-<li>Shadowsocks-libev</li>
-<li>Shadowsocks-Go</li>
-<li>Shadowsocks-NodeJS</li>
-</ul>
-<p>我装的是Shadowsocks-Python。<br>Linux发行版本，我选择的是Debian 7的32位版本。之所以选择这个是为了装后面的优化工具锐速。<br>digitalocean建立Droplets的过程可以参考这个<a href="http://www.zhihu.com/question/25261199" target="_blank" rel="noopener">清北校园网如何配置免流量ipv6环境?</a></p>
-<p>以下操作假定已经取得root权限下操作完成。</p>
-<figure class="highlight sql"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">apt-get <span class="keyword">update</span>  <span class="comment">#更新软件源</span></span><br><span class="line">apt-<span class="keyword">get</span> <span class="keyword">install</span> python-pip  <span class="comment">#安装pip包管理器</span></span><br><span class="line">pip <span class="keyword">install</span> shadowsocks</span><br><span class="line">apt-<span class="keyword">get</span> <span class="keyword">install</span> python-m2crypto     <span class="comment">#安装加密库</span></span><br></pre></td></tr></table></figure>
-<h2 id="配置Shadowsocks"><a href="#配置Shadowsocks" class="headerlink" title="配置Shadowsocks"></a>配置Shadowsocks</h2><figure class="highlight vim"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">apt-<span class="built_in">get</span> install <span class="keyword">vim</span>     #安装<span class="keyword">vim</span></span><br><span class="line"><span class="keyword">vim</span> /etc/shadowsocks.json #编辑配置文件</span><br></pre></td></tr></table></figure>
-<figure class="highlight json"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br></pre></td><td class="code"><pre><span class="line">&#123;</span><br><span class="line">    <span class="attr">"server"</span>:<span class="string">"::"</span>, </span><br><span class="line">    <span class="attr">"server_port"</span>:<span class="number">8388</span>,</span><br><span class="line">    <span class="attr">"local_address"</span>: <span class="string">"127.0.0.1"</span>,</span><br><span class="line">    <span class="attr">"local_port"</span>:<span class="number">1080</span>,</span><br><span class="line">    <span class="attr">"password"</span>:<span class="string">"mypassword"</span>,</span><br><span class="line">    <span class="attr">"timeout"</span>:<span class="number">300</span>,</span><br><span class="line">    <span class="attr">"method"</span>:<span class="string">"aes-256-cfb"</span>,</span><br><span class="line">    <span class="attr">"fast_open"</span>: <span class="literal">false</span></span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
-<table>
-<thead>
-<tr>
-<th>字段</th>
-<th>含义</th>
-</tr>
-</thead>
-<tbody>
-<tr>
-<td>server</td>
-<td>填写你的服务器ip地址</td>
-</tr>
-<tr>
-<td>server_port</td>
-<td>填写服务器的端口号</td>
-</tr>
-<tr>
-<td>local_port</td>
-<td>填写本地监听地址，一般为127.0.0.1</td>
-</tr>
-<tr>
-<td>local_port</td>
-<td>填写本地端口号（一般为1080）</td>
-</tr>
-<tr>
-<td>password</td>
-<td>填写你的Shadowsocks密码</td>
-</tr>
-<tr>
-<td>timeout</td>
-<td>超时时间，单位为秒</td>
-</tr>
-<tr>
-<td>method</td>
-<td>加密方式，推荐使用rc4-md5加密</td>
-</tr>
-<tr>
-<td>fast_open</td>
-<td>打开或者关闭TCP TASTOPEN</td>
-</tr>
-</tbody>
-</table>
-<h2 id="其他完善"><a href="#其他完善" class="headerlink" title="其他完善"></a>其他完善</h2><p>更多完善请参考<a href="http://notes.xiamo.tk/2015-06-17-Digitalocean%E9%85%8D%E7%BD%AEshadowsocks%E6%9C%8D%E5%8A%A1%E5%99%A8-%E4%BC%98%E5%8C%96%E7%AC%94%E8%AE%B0.html" target="_blank" rel="noopener">Digitalocean配置shadowsocks服务器、优化笔记</a></p>
-<h2 id="试用账号及使用方法"><a href="#试用账号及使用方法" class="headerlink" title="试用账号及使用方法"></a>试用账号及使用方法</h2><figure class="highlight css"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line"><span class="selector-tag">ip</span>地址： 2605<span class="selector-pseudo">:f700</span><span class="selector-pseudo">:40</span><span class="selector-pseudo">:c00</span><span class="selector-pseudo">::bc0c</span><span class="selector-pseudo">:a251</span></span><br><span class="line">端口  11810 </span><br><span class="line">密码 <span class="selector-tag">bTQ7qoD5</span> </span><br><span class="line">加密方式：<span class="selector-tag">aes-256-cfb</span></span><br></pre></td></tr></table></figure>
-<p>使用方法可以参考我前面的博客<a href="http://linjiangxian998.com/2014/11/29/six/" target="_blank" rel="noopener">科学上网新方法（附帐号）</a></p>
-<h2 id="傻瓜式方法"><a href="#傻瓜式方法" class="headerlink" title="傻瓜式方法"></a>傻瓜式方法</h2><p>上面的方法就是手工搭建免流量上网的过程，如果你还是觉得太麻烦，其实有一个偷懒的办法。就是直接买可以提供ipv6的shadowsocks账号。省去了搭建和优化的麻烦。我简单在谷歌上搜索了一下，找了个五个看起来满足条件，价格又不算贵的ss服务商。</p>
-<p><a href="http://www.fyzhuji.com/aff.php?aff=1438" target="_blank" rel="noopener">枫叶主机</a></p>
-<p><a href="http://xyv6.com/" target="_blank" rel="noopener">校园v6</a></p>
-<p><a href="http://www.shadowsu.com/shadowsocks.html" target="_blank" rel="noopener">ShadowSU</a></p>
-<p><a href="http://www.ssccsu.com/" target="_blank" rel="noopener">SSCC加速器</a></p>
-<p><a href="http://www.shadowss.net/" target="_blank" rel="noopener">SHADOWSS</a></p>
-<p>其中我买过枫叶主机的shadowsocks，我买的是中级套餐，当时是80元一年，一个月60G，有ipv6节点。现在涨价了变成了120一年。其他几家我也没买过，仅供参考。其中校园v6免费用户可以每个月免费使用3G流量，这个其他没有。</p>
-
+          <!--noindex-->
+          
+            <div class="post-button text-center">
+              <a class="btn" href="/2015/09/30/ipv6-1/#more" rel="contents">
+                阅读全文 &raquo;
+              </a>
+            </div>
+          
+          <!--/noindex-->
         
       
     </div>
@@ -582,7 +523,7 @@
                   <i class="fa fa-calendar-check-o"></i>
                 </span>
                 <span class="post-meta-item-text">更新于</span>
-                <time title="修改时间：2019-08-24 15:26:53" itemprop="dateModified" datetime="2019-08-24T15:26:53+08:00">2019-08-24</time>
+                <time title="修改时间：2019-08-24 20:27:38" itemprop="dateModified" datetime="2019-08-24T20:27:38+08:00">2019-08-24</time>
               </span>
             
           
@@ -612,15 +553,15 @@
 
       
           <p>2015年4月20日，我参加了阿里巴巴的实习生面试。面试是在西安悦豪酒店进行的。我报的职位是测试开发工程师。最终结果是挂在了2面上。但是我还是把面试过程写下来，希望都大家有些参考。</p>
-<h1 id="一面"><a href="#一面" class="headerlink" title="一面"></a>一面</h1><p>我预约的是下午1点半的面试，但是我12点就到了。之后工作人员经我们引导到了一间会议室内，让我们等待，期间放了些视频。大约到了1点钟，我们开始拿着打印的通关卡扫码之后来到等待区等待。屏幕会叫号，同时会有发到你的手机提醒你到哪个桌子面试。<br>不一会我被叫到了去S030桌子去面试。我被引导到一个大厅，大厅感觉像在进行国际象棋比赛，至少有50张桌子，每个桌子都有面试官。每个人都把摆着一台macbook，果然mac才是王道。<br>我来到我的面试官前，将我的纸质简历递给了他。他先看了我的简历，然后叫我自我介绍一下。我简单说了一下，他说你本科在南农读的，浦口吗？我说卫岗，不过我在浦口待了一年。他听了很惊讶，不知道南农本部在卫岗。接着步入正题，他看到我的简历上写着博客和github网址，他便用浏览器看了一下。接着他看到我写着的那些技能便开始问我，python和c/c++有啥区别，Git的原理。接着他问了我毕业设计做的网站，如果让我设计登陆注册的测试用例怎么设计。我也不太会，想到什么就说什么。说完之后，他提到了注入，这我完全没接触过。他又问怎么做性能测试。我说大量用户同时访问，他说那是压力测试（原谅我根本不懂这些）。然后他问我测试的两种方法，我说黑盒测试和白盒测试。他又问黑盒测试具体有哪些，我就不知道了。他说你听过划分等价类吗（原来这就是黑盒测试的方法，软件工程学的不好）。<br>他说你的这些项目都是PHP做的，有用其他C/C++/java做的吗，我想了想，只能尴尬地说没有。接着他给我出了一道题，让我在纸上写出代码，不限制语言。<br><figure class="highlight stylus"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">比如<span class="selector-tag">a</span> <span class="selector-tag">b</span> <span class="selector-tag">b</span> <span class="selector-tag">a</span> c d找出不重复的第一个字符，时间复杂度O(n)</span><br></pre></td></tr></table></figure></p>
-<p>我把题理解错了，写了个时间复杂度O(n2)的，而且意思不对。他重新解释了之后，说你说一下思路吧。可惜我没想出来。他便给我讲了一下，就是以空间换时间，每遍历一个字符就标记一下。<br>最后他问你的网址怎么都叫linjiangxian，我说那是我喜欢<strong>临江仙</strong>这个词牌名，高中做高考卷时有首侯蒙的《临江仙》</p>
-<blockquote>
-<p>好风凭借力，送我上青云</p>
-</blockquote>
-<p>而且我本科在南京上的学，和这个名字也很符合，他说他原来也是在南京上的学。<br>最后的最后他说你有什么想问的，我于是说出了之前想好的问题，测试开发工程师和测试有什么不一样。这个职位在哪个城市。<br>之后我结束了一面，回到等待区，本来我以为自己答得不好，应该没什么希望，没想到很快收到了二面的短信，通知我去S050桌去二面。</p>
-<h1 id="二面"><a href="#二面" class="headerlink" title="二面"></a>二面</h1><p>通过一面有一定运气成分。二面我的面试官有两人，之前的一面是一个人。我记得其中一人的花名是”叶渡”。二面只要是问的项目和实践，不怎么问前面的基础了。我先讲了12年做的SRT，又说了本科毕业设计做的网站。他问我花了多长时间，遇到了什么困难。我说三个月，然后巴拉巴拉说了其中遇到的问题。之后我又说了我现在做的微信公共账号，因为我是跟许大神做的，他便问我提出了哪些创新。说完之后他让我写一个程序，跟一面一样，在纸上写出来。<br><figure class="highlight basic"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line"><span class="number">1</span></span><br><span class="line"><span class="symbol">1 </span><span class="number">1</span></span><br><span class="line"><span class="symbol">1 </span><span class="number">2</span> <span class="number">1</span></span><br><span class="line"><span class="symbol">1 </span><span class="number">3</span> <span class="number">3</span> <span class="number">1</span></span><br><span class="line"><span class="symbol">1 </span><span class="number">4</span> <span class="number">6</span> <span class="number">4</span> <span class="number">1</span></span><br></pre></td></tr></table></figure></p>
-<p>打印一个这样的东东，输入n 输出n行<br>我硬着头皮写了一半，写不动了，他等了一会，就把我的纸收走了。之后另一个人问我之前写的程序是PHP的，如果让你改写JAVA的能适应吗,我当然说能，接着说了我会怎么学习。最后还是你有什么要问的，我把一面的提问又问了一遍。<br>二面结束后我又回到等待区等待，等了一会，工作人员说我今天面完了，回去看网上的结果。回来一查，待回绝，果然是二面挂了。<br>总结一下，面试必备的，自我介绍，在纸上写程序，最后的提问。另外简历写得很重要，面试基本都是围绕简历面试的。</p>
-
+          <!--noindex-->
+          
+            <div class="post-button text-center">
+              <a class="btn" href="/2015/04/21/阿里实习生/#more" rel="contents">
+                阅读全文 &raquo;
+              </a>
+            </div>
+          
+          <!--/noindex-->
         
       
     </div>
@@ -686,7 +627,7 @@
                   <i class="fa fa-calendar-check-o"></i>
                 </span>
                 <span class="post-meta-item-text">更新于</span>
-                <time title="修改时间：2019-08-24 15:26:53" itemprop="dateModified" datetime="2019-08-24T15:26:53+08:00">2019-08-24</time>
+                <time title="修改时间：2019-08-24 20:27:17" itemprop="dateModified" datetime="2019-08-24T20:27:17+08:00">2019-08-24</time>
               </span>
             
           
@@ -715,14 +656,16 @@
     <div class="post-body" itemprop="articleBody">
 
       
-          <p>科学上网就是访问国内网络无法访问的网站，比如facebook等。我以前用过goagent，最近shadowsocks比较流行。shadowsocks实质上也是一种socks5代理服务，shadowsocks仅针对浏览器代理，不能代理应用软件，比如youtube、twitter客户端软件。<br>1.如果是windows平台，可以从<a href="http://pan.baidu.com/s/1eQBCYCa" target="_blank" rel="noopener">百度网盘</a>下载。<br>2.运行解压后文件夹中的“shadowsocks.exe”，按照我给的账号设置好shadowsocks的账号信息，点save。<br><figure class="highlight css"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line"><span class="selector-tag">ip</span>地址： 2605<span class="selector-pseudo">:f700</span><span class="selector-pseudo">:40</span><span class="selector-pseudo">:c00</span><span class="selector-pseudo">::bc0c</span><span class="selector-pseudo">:a251</span></span><br><span class="line">端口  11810  </span><br><span class="line">密码 <span class="selector-tag">bTQ7qoD5</span> </span><br><span class="line">加密方式：<span class="selector-tag">aes-256-cfb</span></span><br></pre></td></tr></table></figure></p>
-<p>该账号到期时间是12月11日<br>3.使用可以安装插件的浏览器，比如chrome、火狐、360浏览器、搜狗浏览器之类的，在扩展里面找到Proxy SwitchySharp插件（找不到可以从<a href="http://pan.baidu.com/s/1bnrP9iZ" target="_blank" rel="noopener">百度网盘</a>下载，把下载的crx文件拖进浏览器去即可安装）</p>
-<p><strong>现在这个插件的作者开发了新的插件SwitchyOmega，推荐使用这个(<a href="https://github.com/FelisCatus/SwitchyOmega/releases/download/v2.3.16/SwitchyOmega.crx" target="_blank" rel="noopener">下载地址</a>)，设置和SwitchySharp类似。</strong></p>
-<p>4.设置Proxy SwitchySharp<br>右键点击浏览器右上角的地球图标，『选项』-『情景模式』-『新建情景模式』，按如下图设置<img src="/img/19.png" alt><br>然后进入『切换规则』，三个框全勾选，『在线规则列表』中填写<br><figure class="highlight awk"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">https:<span class="regexp">//</span>autoproxy-gfwlist.googlecode.com<span class="regexp">/svn/</span>trunk<span class="regexp">/gfwlist.txt</span></span><br></pre></td></tr></table></figure></p>
-<p>保存，立即更新列表。<br><img src="http://ww2.sinaimg.cn/large/5e8cb366jw1eixhdqrfaxj20ot04i74s.jpg" alt><br>平时Proxy SwitchySharp保持这种状态就可以。<br><img src="/img/18.jpg" alt><br>注意如果要科学上网的话，shadowsocks软件要开着，且账号可用才可以。<br>shadowsocks在linux mac 安卓 ios平台都有客户端，都可以使用。</p>
-<hr>
-<p>另外推荐一个代替谷歌的网站<a href="http://gufensoso.com/" target="_blank" rel="noopener">谷粉搜搜</a>,搜索结果结果由香港谷歌实时提供 ，但是速度比直接访问谷歌快很多。我真心体会到谷歌在搜索技术内容时，比百度准确很多。</p>
-
+          <p>科学上网就是访问国内网络无法访问的网站，比如facebook等。我以前用过goagent，最近shadowsocks比较流行。shadowsocks实质上也是一种socks5代理服务，shadowsocks仅针对浏览器代理，不能代理应用软件，比如youtube、twitter客户端软件。</p>
+          <!--noindex-->
+          
+            <div class="post-button text-center">
+              <a class="btn" href="/2014/11/29/six/#more" rel="contents">
+                阅读全文 &raquo;
+              </a>
+            </div>
+          
+          <!--/noindex-->
         
       
     </div>
@@ -788,7 +731,7 @@
                   <i class="fa fa-calendar-check-o"></i>
                 </span>
                 <span class="post-meta-item-text">更新于</span>
-                <time title="修改时间：2019-08-24 15:26:53" itemprop="dateModified" datetime="2019-08-24T15:26:53+08:00">2019-08-24</time>
+                <time title="修改时间：2019-08-24 20:26:25" itemprop="dateModified" datetime="2019-08-24T20:26:25+08:00">2019-08-24</time>
               </span>
             
           
@@ -818,24 +761,15 @@
 
       
           <p>有了域名，再加上一些优化，就可以在搜索引擎里搜到你的博客了。域名我是在Goddady里买的，我在前面已经讲过了为什么我在这里买，所以教程以Goddady为例。Goddady支持支付宝，支付比较方便。我的域名一年58元。我现在觉得我选的这个域名不太好，太长了。不过不用担心，域名是自己起名的，你可以设一个自己认为好的域名，只要它没被注册。</p>
-<h2 id="购买域名"><a href="#购买域名" class="headerlink" title="购买域名"></a>购买域名</h2><p>首先进入<a href="https://www.godaddy.com/" target="_blank" rel="noopener">Goddady</a>官网，网站是英文的，不过比较容易懂。如果把English旁边的按钮选成CNY，就是按人民币算的钱。没有账号点击Register注册-Creat My Accout。<br><img src="/img/10.JPG" alt="注册"></p>
-<h3 id="1、查你想要的域名"><a href="#1、查你想要的域名" class="headerlink" title="1、查你想要的域名"></a>1、查你想要的域名</h3><p><img src="http://pic.yupoo.com/vankos_v/DKfZ9NWd/jD41I.png" alt></p>
-<h3 id="2、查到适合的域名之后选择「continue-to-Cart」"><a href="#2、查到适合的域名之后选择「continue-to-Cart」" class="headerlink" title="2、查到适合的域名之后选择「continue to Cart」"></a>2、查到适合的域名之后选择「continue to Cart」</h3><p><img src="/img/11.JPG" alt></p>
-<h3 id="3、godaddy附加收费服务，不要管，继续「continue-to-Cart」"><a href="#3、godaddy附加收费服务，不要管，继续「continue-to-Cart」" class="headerlink" title="3、godaddy附加收费服务，不要管，继续「continue to Cart」"></a>3、godaddy附加收费服务，不要管，继续「continue to Cart」</h3><p><img src="/img/12.JPG" alt><br><img src="/img/13.JPG" alt></p>
-<h3 id="4、确认购买。修改购买年限，默认是两年，可以修改成1-2-3-5-10年，随自己喜欢。我买的一年。"><a href="#4、确认购买。修改购买年限，默认是两年，可以修改成1-2-3-5-10年，随自己喜欢。我买的一年。" class="headerlink" title="4、确认购买。修改购买年限，默认是两年，可以修改成1/2/3/5/10年，随自己喜欢。我买的一年。"></a>4、确认购买。修改购买年限，默认是两年，可以修改成1/2/3/5/10年，随自己喜欢。我买的一年。</h3><p><img src="/img/14.JPG" alt><br>可以上网搜godaddy的优惠码，找一个填进这里，填完之后，会便宜一些<br><img src="/img/15.JPG" alt></p>
-<h3 id="5、结算。登录或注册界面，填完必要的信息之后，选择用支付宝结算。"><a href="#5、结算。登录或注册界面，填完必要的信息之后，选择用支付宝结算。" class="headerlink" title="5、结算。登录或注册界面，填完必要的信息之后，选择用支付宝结算。"></a>5、结算。登录或注册界面，填完必要的信息之后，选择用支付宝结算。</h3><p><img src="http://pic.yupoo.com/vankos_v/DKg3N752/5hiii.png" alt></p>
-<h3 id="6、检查。结算后，重新登录，去「My-Account」，域名已经显示在你的账户了。"><a href="#6、检查。结算后，重新登录，去「My-Account」，域名已经显示在你的账户了。" class="headerlink" title="6、检查。结算后，重新登录，去「My Account」，域名已经显示在你的账户了。"></a>6、检查。结算后，重新登录，去「My Account」，域名已经显示在你的账户了。</h3><p><img src="/img/16.JPG" alt></p>
-<h3 id="7、补充一些注意事项："><a href="#7、补充一些注意事项：" class="headerlink" title="7、补充一些注意事项："></a>7、补充一些注意事项：</h3><p>输入优惠码没有优惠或者优惠幅度较低，请清除浏览器cookies再尝试；<br>如果没有支付宝支付选项，有可能是使用的优惠码不支持支付宝，请重新清除浏览器cookies再尝试；<br>注册时用户填写信息时一定要输入正确的邮箱名字，否则修改十分麻烦。<br>买完域名之后一定要记得去自己的邮箱查看激活邮件，否则域名激活不了</p>
-<h2 id="域名绑定"><a href="#域名绑定" class="headerlink" title="域名绑定"></a>域名绑定</h2><h3 id="1-CNAME设置"><a href="#1-CNAME设置" class="headerlink" title="1.CNAME设置"></a>1.CNAME设置</h3><p>在hexo\source下新建一个名字为CNAME文件（没有扩展名），打开它在里面输入你购买的域名，保存。</p>
-<h3 id="2-DNS设置"><a href="#2-DNS设置" class="headerlink" title="2.DNS设置"></a>2.DNS设置</h3><p>推荐使用DNSpod，快，免费，稳定，中文。<br>首先注册<a href="https://www.dnspod.cn/" target="_blank" rel="noopener">dnspod</a>,添加域名，进行如下设置<br><img src="/img/17.JPG" alt><br>其中A的两条记录指向的ip地址是github Pages的提供的ip</p>
-<p>192.30.252.153<br>192.30.252.154<br>最后一个CNAME要填 你的github用户名.github.io（就是你创建的那个 repository的名字，比如我的就是shiping998.github.io）</p>
-<h3 id="3-去Godaddy修改DNS地址"><a href="#3-去Godaddy修改DNS地址" class="headerlink" title="3.去Godaddy修改DNS地址"></a>3.去Godaddy修改DNS地址</h3><p>更改godaddy的Nameservers为DNSpod的NameServers。</p>
-<h4 id="1、点击「My-Account」，管理我的域名。"><a href="#1、点击「My-Account」，管理我的域名。" class="headerlink" title="1、点击「My Account」，管理我的域名。"></a>1、点击「My Account」，管理我的域名。</h4><p><img src="http://pic.yupoo.com/vankos_v/DKguRB1h/dqHAZ.jpg" alt></p>
-<h4 id="2、点击域名。"><a href="#2、点击域名。" class="headerlink" title="2、点击域名。"></a>2、点击域名。</h4><p><img src="http://pic.yupoo.com/vankos_v/DKguScNK/UWvp.jpg" alt></p>
-<h4 id="3、将godaddy的Nameservers更改成f1g1ns1-dnspod-net和f1g1ns2-dnspod-net"><a href="#3、将godaddy的Nameservers更改成f1g1ns1-dnspod-net和f1g1ns2-dnspod-net" class="headerlink" title="3、将godaddy的Nameservers更改成f1g1ns1.dnspod.net和f1g1ns2.dnspod.net"></a>3、将godaddy的Nameservers更改成f1g1ns1.dnspod.net和f1g1ns2.dnspod.net</h4><p><img src="http://pic.yupoo.com/vankos_v/DKguQvcp/3dN7k.jpg" alt><br><img src="http://pic.yupoo.com/vankos_v/DKijvnQy/JOE82.png" alt></p>
-<hr>
-<p>稍等一会，输入域名就可以访问你的博客了。这篇教程参考了很多<a href="http://blog.sina.com.cn/s/blog_617ccc0c0101h84p.html" target="_blank" rel="noopener">如何搭建一个独立博客——简明Github Pages与Hexo教程</a>，在此表示感谢。<br>至此，搭建hexo博客的系列教程全部结束了，还有很多问题我可能没提到，自己可能也不清楚。那就只能大家自己搜索了。看起来教程比较繁琐，但如果搭建成功，回过头来想想，也没有那么复杂，还有一定成就感。希望你能拥有自己的博客。</p>
-
+          <!--noindex-->
+          
+            <div class="post-button text-center">
+              <a class="btn" href="/2014/11/28/five/#more" rel="contents">
+                阅读全文 &raquo;
+              </a>
+            </div>
+          
+          <!--/noindex-->
         
       
     </div>
@@ -901,7 +835,7 @@
                   <i class="fa fa-calendar-check-o"></i>
                 </span>
                 <span class="post-meta-item-text">更新于</span>
-                <time title="修改时间：2019-08-24 15:26:53" itemprop="dateModified" datetime="2019-08-24T15:26:53+08:00">2019-08-24</time>
+                <time title="修改时间：2019-08-24 20:26:34" itemprop="dateModified" datetime="2019-08-24T20:26:34+08:00">2019-08-24</time>
               </span>
             
           
@@ -931,23 +865,15 @@
 
       
           <p><strong>注</strong>：对文本的操作推荐用<a href="http://www.sublimetext.com/2" target="_blank" rel="noopener">Sublime Text 2</a>、<a href="http://notepad-plus-plus.org/" target="_blank" rel="noopener">notepad++</a>、<a href="https://www.editplus.com/download.html" target="_blank" rel="noopener">EditPlus</a>,不推荐用Word和Windows自带的记事本。Word保存的不是纯文本文件，而记事本会自作聪明地在文件开始的地方加上几个特殊字符（UTF-8 BOM），结果会导致程序运行出现莫名其妙的错误。如果文本文件中有中文的话，保存为utf-8的编码，不会有乱码。</p>
-<h2 id="部署博客到github上"><a href="#部署博客到github上" class="headerlink" title="部署博客到github上"></a>部署博客到github上</h2><p>用我推荐的文本编辑器打开_config.yml(如G:\hexo下)。你在部署时，要把下面的<em>shiping998</em>都换成你的账号名。<br><img src="/img/5.JPG" alt="Deployment"><br>先右击空白处选择Git Bash执行<br><figure class="highlight ebnf"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="attribute">hexo g</span></span><br></pre></td></tr></table></figure></p>
-<p>使修改生效，再执行<br><figure class="highlight ebnf"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="attribute">hexo d</span></span><br></pre></td></tr></table></figure></p>
-<p>遇到<img src="/img/6.JPG" alt="email">输入你注册github时的用户名，然后回车<br>下面就是输入github的密码<img src="/img/7.JPG" alt="password"> (<em>输入密码是不会显示，大胆的输就是了</em>)然后回车就提交成功了。你可以访问<a href="http://shiping998.github.io/">http://shiping998.github.io/</a>  （shiping998换成你的用户名）查看你的博客。</p>
-<p>每次提交都要输入账号密码，很麻烦。参看<br><a href="http://zipperary.com/2013/05/26/ssh-errors-with-github/" target="_blank" rel="noopener">重复输入用户名密码的问题</a>可以解决这个问题。</p>
-<h2 id="应用主题"><a href="#应用主题" class="headerlink" title="应用主题"></a>应用主题</h2><p>博客虽然建成了但是默认主题不好看，hexo提供了一些主题（相当于皮肤）使我们的博客看起来更高大上一些。例如我用的就是Pacman主题。大家可以在<a href="https://github.com/hexojs/hexo/wiki/Themes" target="_blank" rel="noopener">这里</a>看到hexo的各种主题。我比较推荐我用的Pacman主题或者是和它类似的Jacman主题。下面我以Pacman为例简要介绍一下如何安装和使用。</p>
-<h3 id="安装"><a href="#安装" class="headerlink" title="安装"></a>安装</h3><p>在Git Bash中输入<br><figure class="highlight crmsh"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">$ git <span class="keyword">clone</span> <span class="title">https</span>://github.com/A-limon/pacman.git themes/pacman</span><br></pre></td></tr></table></figure></p>
-<h3 id="启用"><a href="#启用" class="headerlink" title="启用"></a>启用</h3><p>修改你的博客根目录（hexo)下的_config.yml配置文件中的theme属性，将其设置为pacman。<br><img src="/img/8.JPG" alt="theme"><br>更多配置可以参看<a href="http://yangjian.me/workspace/introducing-pacman-theme/" target="_blank" rel="noopener">Pacman主题介绍</a></p>
-<hr>
-<p>如果你想使用Jacman主题，看以参看<a href="http://wuchong.me/blog/2014/11/20/how-to-use-jacman/" target="_blank" rel="noopener">如何使用 Jacman 主题</a></p>
-<h2 id="写博客"><a href="#写博客" class="headerlink" title="写博客"></a>写博客</h2><p>前面费了不少劲搭建博客，最终目的还是为了写博客。你可能会说就是直接写呗。但是hexo是使用markdown语法写博客的。不过不要担心，markdown 并不困难，它其实就是用一些符号来控制文本格式，和自然书写区别不大。下面我就讲一下如何写博客。<br>在Git Bash输入<br><figure class="highlight haxe"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">hexo <span class="keyword">new</span> <span class="type"></span>"my <span class="keyword">new</span> <span class="type">post</span>"</span><br></pre></td></tr></table></figure></p>
-<p>（my new post是标题，可以自己定义）就在hexo\source_posts中新建了一个my-new-post.md的文件，用我之前说的文本编辑器打开它，对它进行编辑就可以了。保存后，再依次执行<br><figure class="highlight ebnf"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line"><span class="attribute">hexo g</span></span><br><span class="line"><span class="attribute">hexo d</span></span><br></pre></td></tr></table></figure></p>
-<p>博客就有了一篇文章。<br>书写时要按照markdown的格式，可以使用在线的<a href="https://www.zybuluo.com" target="_blank" rel="noopener">markdown编辑器</a>进行编辑然后复制过去。语法很简单，可以看一下<a href="http://www.jianshu.com/p/q81RER" target="_blank" rel="noopener">献给写作者的 Markdown 新手指南</a>这篇教程。这篇教程本身就是在<a href="http://www.jianshu.com" target="_blank" rel="noopener">简书</a>上用markdown写成的，你也可以使用简书书写。<br>我再附上一张简明的图，使大家上手更快些。<img src="/img/9.JPG" alt="markdown"></p>
-<hr>
-<p>事实上如果你不想花钱，到这里就已经完成了博客的搭建。我的教程还有很多疏漏，更详细的教程可以参看<a href="http://zipperary.com/categories/hexo/" target="_blank" rel="noopener">hexo系列教程</a>。</p>
-<hr>
-<p>下一篇我将讲一下购买域名和绑定域名的问题。</p>
-
+          <!--noindex-->
+          
+            <div class="post-button text-center">
+              <a class="btn" href="/2014/11/24/four/#more" rel="contents">
+                阅读全文 &raquo;
+              </a>
+            </div>
+          
+          <!--/noindex-->
         
       
     </div>
@@ -1013,7 +939,7 @@
                   <i class="fa fa-calendar-check-o"></i>
                 </span>
                 <span class="post-meta-item-text">更新于</span>
-                <time title="修改时间：2019-08-24 15:26:53" itemprop="dateModified" datetime="2019-08-24T15:26:53+08:00">2019-08-24</time>
+                <time title="修改时间：2019-08-24 20:28:51" itemprop="dateModified" datetime="2019-08-24T20:28:51+08:00">2019-08-24</time>
               </span>
             
           
@@ -1043,15 +969,15 @@
 
       
           <h2 id="安装Node-js"><a href="#安装Node-js" class="headerlink" title="安装Node.js"></a>安装Node.js</h2><p>hexo是一款基于Node.js的博客框架，所以要先安装Node.js环境。在 Windows 下安装 Node.js 只需要在<a href="http://nodejs.org/" target="_blank" rel="noopener">Node.js</a>官网，点击install便可以下载安装程序。下载之后直接安装就可以了。安装完之后请重启电脑一次。</p>
-<h2 id="安装mygit"><a href="#安装mygit" class="headerlink" title="安装mygit"></a>安装mygit</h2><p>我们将在这个软件输入一些命令进行操作。从<a href="http://msysgit.github.io" target="_blank" rel="noopener">http://msysgit.github.io</a> 下载，然后按默认选项安装即可。</p>
-<p>安装完成后，在空白处右击鼠标选择Git Bash蹦出一个类似命令行窗口的东西，就说明Git安装成功！<br><img src="/img/4.jpg" alt="Git Bash"><br>在Git Bash输入<br><figure class="highlight routeros"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">git<span class="built_in"> config </span>--global user.name <span class="string">"Your Name"</span></span><br><span class="line">git<span class="built_in"> config </span>--global user.email <span class="string">"email@example.com"</span></span><br></pre></td></tr></table></figure></p>
-<p>Your Name要填你在github中注册的用户名，<a href="mailto:email@example.com" target="_blank" rel="noopener">email@example.com</a>填你注册github时用的邮箱。</p>
-<h2 id="安装hexo"><a href="#安装hexo" class="headerlink" title="安装hexo"></a>安装hexo</h2><p>在任意空白处右击鼠标选择Git Bash,输入<br><figure class="highlight css"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="selector-tag">npm</span> <span class="selector-tag">install</span> <span class="selector-tag">-g</span> <span class="selector-tag">hexo</span>@<span class="keyword">2</span>.<span class="keyword">8</span>.<span class="keyword">3</span></span><br></pre></td></tr></table></figure></p>
-<h2 id="创建hexo文件夹"><a href="#创建hexo文件夹" class="headerlink" title="创建hexo文件夹"></a>创建hexo文件夹</h2><p>在你喜爱的文件夹下（如G:\hexo），在G:\hexo（你自己的文件可能跟我不一样）内点击鼠标右键，选择Git bash，执行以下指令。Hexo会自动在目标文件夹建立网站所需要的所有文件。<br><figure class="highlight ebnf"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="attribute">hexo init</span></span><br></pre></td></tr></table></figure></p>
-<h2 id="安装依赖包"><a href="#安装依赖包" class="headerlink" title="安装依赖包"></a>安装依赖包</h2><figure class="highlight cmake"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">npm <span class="keyword">install</span></span><br></pre></td></tr></table></figure>
-<h2 id="本地网站"><a href="#本地网站" class="headerlink" title="本地网站"></a>本地网站</h2><p>执行以下命令(如G:\hexo)<br><figure class="highlight ebnf"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line"><span class="attribute">hexo g</span></span><br><span class="line"><span class="attribute">hexo s</span></span><br></pre></td></tr></table></figure></p>
-<p>g即是generate，可以写整个单词generate，也可以只写g。s也是同理，即是server。<br>以上两步就建起了本地博客，按照提示可以在浏览器中输入<a href="http://localhost:4000" target="_blank" rel="noopener">http://localhost:4000</a> 查看。但是博客还没有放到github上，别人看不到。下一篇我讲一下怎么把博客托管到github上，这样就是真正的博客了。</p>
-
+          <!--noindex-->
+          
+            <div class="post-button text-center">
+              <a class="btn" href="/2014/11/16/three/#more" rel="contents">
+                阅读全文 &raquo;
+              </a>
+            </div>
+          
+          <!--/noindex-->
         
       
     </div>
@@ -1117,7 +1043,7 @@
                   <i class="fa fa-calendar-check-o"></i>
                 </span>
                 <span class="post-meta-item-text">更新于</span>
-                <time title="修改时间：2019-08-24 15:26:53" itemprop="dateModified" datetime="2019-08-24T15:26:53+08:00">2019-08-24</time>
+                <time title="修改时间：2019-08-24 20:28:41" itemprop="dateModified" datetime="2019-08-24T20:28:41+08:00">2019-08-24</time>
               </span>
             
           
@@ -1146,9 +1072,16 @@
     <div class="post-body" itemprop="articleBody">
 
       
-          <h2 id="注册github账号"><a href="#注册github账号" class="headerlink" title="注册github账号"></a>注册github账号</h2><p>首先进入<a href="https://github.com/" target="_blank" rel="noopener">github</a>主页，在三个白框中分别填入用户名、邮箱、密码，再点击绿色的<em>sign up for github</em>进行注册。<br><img src="http://ww1.sinaimg.cn/large/44b3f8f7jw1emczcnqbflj211y0k9wmh.jpg" alt="注册首页"><br>注册成功并登陆后进入如下界面。<br><img src="http://ww3.sinaimg.cn/large/44b3f8f7jw1emczczur2vj211y0k9ajg.jpg" alt="登陆成功"></p>
-<h2 id="创建repository-仓库"><a href="#创建repository-仓库" class="headerlink" title="创建repository(仓库)"></a>创建repository(仓库)</h2><p>在登陆成功后的右下角点击绿色的<strong>New repository</strong>,在Repository name一栏中填<strong>你的用户名.github.io</strong>（必须这么命名）。比如我的用户名是shiping998,那我就必须取名为<strong>shiping998.github.io</strong>。<br><img src="/img/3.jpg" alt="创建repository"><br>然后就可以点击绿色的<strong>create repository</strong>创建仓库了。<br>下一篇我将讲一下hexo配置。</p>
-
+          <h2 id="注册github账号"><a href="#注册github账号" class="headerlink" title="注册github账号"></a>注册github账号</h2><p>首先进入<a href="https://github.com/" target="_blank" rel="noopener">github</a>主页，在三个白框中分别填入用户名、邮箱、密码，再点击绿色的<em>sign up for github</em>进行注册。</p>
+          <!--noindex-->
+          
+            <div class="post-button text-center">
+              <a class="btn" href="/2014/11/16/two/#more" rel="contents">
+                阅读全文 &raquo;
+              </a>
+            </div>
+          
+          <!--/noindex-->
         
       
     </div>
@@ -1214,7 +1147,7 @@
                   <i class="fa fa-calendar-check-o"></i>
                 </span>
                 <span class="post-meta-item-text">更新于</span>
-                <time title="修改时间：2019-08-24 15:26:53" itemprop="dateModified" datetime="2019-08-24T15:26:53+08:00">2019-08-24</time>
+                <time title="修改时间：2019-08-24 20:27:09" itemprop="dateModified" datetime="2019-08-24T20:27:09+08:00">2019-08-24</time>
               </span>
             
           
@@ -1244,20 +1177,15 @@
 
       
           <p>这篇文章先讲一下建博客的主要流程和一些理论知识。我读了不少这方面的教程，有的通俗易懂，但有些不太好理解。其中我尽可能用通俗的语言来解释它，有不少是自己的理解，可能不是太正确。</p>
-<ol>
-<li>我们采用<a href="http://www.github.com/" target="_blank" rel="noopener">github</a>来作为网络空间（网络空间就是存放网站的地方），github有一个github pages,它提供300MB的免费空间，用来建博客已经足够了。github是世界上最大的代码托管网站。我的理解是它大概和百度网盘差不多，只不过上面存放的都是代码。国内有类似的网站比如<a href="https://gitcafe.com/" target="_blank" rel="noopener">gitcafe</a>,事实上也可以把博客放在它上面，访问速度更快。选择github是为了跟国际接轨，也锻炼一下英文。</li>
-<li>在电脑上安装hexo，hexo出自台湾大学生tommy351（网名）之手，是一个基于Node.js（我也不清楚是什么，但没关系）的静态博客程序。静态博客不需要数据库，不用java、php、.net等这些东西。进行一些配置后把代码同步到github上，你的博客就可以访问了。</li>
-<li>博文是使用markdown书写的。markdown是一种标记语言，我理解就是完全用文本来实现类似word那样的格式控制。比如用 ** 来使文字<strong>加粗</strong>等。</li>
-</ol>
-<hr>
-<p>如果你不想花钱，那么以上就可以了，github会给你提供一个二级域名来访问博客,比如我的博客是<a href="http://shiping998.github.io">shiping998.github.io</a>。<br>如果你想使用自己的域名，那么接下来</p>
-<p>4.你可以去<a href="https://www.godaddy.com/" target="_blank" rel="noopener">godaddy</a>上去买个域名。godaddy是个国外卖域名的网站，我看很多人都推荐去那买域名。大体是因为：</p>
-<pre><code>- 在国外，不受国内各种干扰。
-- 国外域名商中唯一支持支付宝付款的。
-- 价格不高，还经常有优惠。
-- 信誉好，口碑好，靠谱。
-</code></pre><p>5.买完域名之后再选择国内口碑最好使用最多的免费dns服务商<a href="https://www.dnspod.cn/" target="_blank" rel="noopener">dnspod</a>进行域名解析。所谓域名解析就是把ip地址和网址对应起来。<br>这样你就可以通过自己买的域名访问博客了。再接下来的文章中我将讲一下具体过程。</p>
-
+          <!--noindex-->
+          
+            <div class="post-button text-center">
+              <a class="btn" href="/2014/11/07/one/#more" rel="contents">
+                阅读全文 &raquo;
+              </a>
+            </div>
+          
+          <!--/noindex-->
         
       
     </div>
