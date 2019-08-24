@@ -1,0 +1,534 @@
+
+ <!DOCTYPE HTML>
+<html lang="zh-CN">
+<head><meta name="generator" content="Hexo 3.9.0">
+  <meta charset="UTF-8">
+  
+    <title>使用hexo建立个人博客（四） | linjiangxian&#39;s blog</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1,user-scalable=no">
+    
+    <meta name="author" content="linjiangxian">
+    
+
+    
+    <meta name="description" content="注：对文本的操作推荐用Sublime Text 2、notepad++、EditPlus,不推荐用Word和Windows自带的记事本。Word保存的不是纯文本文件，而记事本会自作聪明地在文件开始的地方加上几个特殊字符（UTF-8 BOM），结果会导致程序运行出现莫名其妙的错误。如果文本文件中有中文的话，保存为utf-8的编码，不会有乱码。 部署博客到github上用我推荐的文本编辑器打开_con">
+<meta name="keywords" content="hexo">
+<meta property="og:type" content="article">
+<meta property="og:title" content="使用hexo建立个人博客（四）">
+<meta property="og:url" content="http://shiping998.github.io/2014/11/24/four/index.html">
+<meta property="og:site_name" content="linjiangxian&#39;s blog">
+<meta property="og:description" content="注：对文本的操作推荐用Sublime Text 2、notepad++、EditPlus,不推荐用Word和Windows自带的记事本。Word保存的不是纯文本文件，而记事本会自作聪明地在文件开始的地方加上几个特殊字符（UTF-8 BOM），结果会导致程序运行出现莫名其妙的错误。如果文本文件中有中文的话，保存为utf-8的编码，不会有乱码。 部署博客到github上用我推荐的文本编辑器打开_con">
+<meta property="og:locale" content="zh-CN">
+<meta property="og:image" content="http://shiping998.github.io/img/5.JPG">
+<meta property="og:image" content="http://shiping998.github.io/img/6.JPG">
+<meta property="og:image" content="http://shiping998.github.io/img/7.JPG">
+<meta property="og:image" content="http://shiping998.github.io/img/8.JPG">
+<meta property="og:image" content="http://shiping998.github.io/img/9.JPG">
+<meta property="og:updated_time" content="2019-08-24T07:26:53.469Z">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:title" content="使用hexo建立个人博客（四）">
+<meta name="twitter:description" content="注：对文本的操作推荐用Sublime Text 2、notepad++、EditPlus,不推荐用Word和Windows自带的记事本。Word保存的不是纯文本文件，而记事本会自作聪明地在文件开始的地方加上几个特殊字符（UTF-8 BOM），结果会导致程序运行出现莫名其妙的错误。如果文本文件中有中文的话，保存为utf-8的编码，不会有乱码。 部署博客到github上用我推荐的文本编辑器打开_con">
+<meta name="twitter:image" content="http://shiping998.github.io/img/5.JPG">
+
+    
+    <link rel="alternative" href="/atom.xml" title="linjiangxian&#39;s blog" type="application/atom+xml">
+    
+    
+    <link rel="icon" href="/img/favicon.ico">
+    
+    
+    <link rel="apple-touch-icon" href="/img/jacman.jpg">
+    <link rel="apple-touch-icon-precomposed" href="/img/jacman.jpg">
+    
+    <link rel="stylesheet" href="/css/style.css">
+</head>
+</html>
+  <body>
+    <header>
+      
+<div>
+		
+			<div id="imglogo">
+				<a href="/"><img src="/img/logo.png" alt="linjiangxian&#39;s blog" title="linjiangxian&#39;s blog"/></a>
+			</div>
+			
+			<div id="textlogo">
+				<h1 class="site-name"><a href="/" title="linjiangxian&#39;s blog">linjiangxian&#39;s blog</a></h1>
+				<h2 class="blog-motto">功难成而易败，机难得而易失</h2>
+			</div>
+			<div class="navbar"><a class="navbutton navmobile" href="#" title="菜单">
+			</a></div>
+			<nav class="animated">
+				<ul>
+					<ul>
+					 
+						<li><a href="/">Home</a></li>
+					
+						<li><a href="/archives">Archives</a></li>
+					
+						<li><a href="/about">About</a></li>
+					
+					<li>
+ 					
+					<form class="search" action="//google.com/search" method="get" accept-charset="utf-8">
+						<label>Search</label>
+						<input type="search" id="search" name="q" autocomplete="off" maxlength="20" placeholder="搜索" />
+						<input type="hidden" name="q" value="site:shiping998.github.io">
+					</form>
+					
+					</li>
+				</ul>
+			</nav>			
+</div>
+    </header>
+    <div id="container">
+      <div id="main" class="post" itemscope itemprop="blogPost">
+  
+	<article itemprop="articleBody"> 
+		<header class="article-info clearfix">
+  <h1 itemprop="name">
+    
+      <a href="/2014/11/24/four/" title="使用hexo建立个人博客（四）" itemprop="url">使用hexo建立个人博客（四）</a>
+  </h1>
+  <p class="article-author">By
+       
+		<a href="/about" title="linjiangxian" target="_blank" itemprop="author">linjiangxian</a>
+		
+  <p class="article-time">
+    <time datetime="2014-11-24T13:41:52.000Z" itemprop="datePublished"> 发表于 2014-11-24</time>
+    
+  </p>
+</header>
+	<div class="article-content">
+		
+		<div id="toc" class="toc-article">
+			<strong class="toc-title">文章目录</strong>
+		
+			<ol class="toc"><li class="toc-item toc-level-2"><a class="toc-link" href="#部署博客到github上"><span class="toc-number">1.</span> <span class="toc-text">部署博客到github上</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#应用主题"><span class="toc-number">2.</span> <span class="toc-text">应用主题</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#安装"><span class="toc-number">2.1.</span> <span class="toc-text">安装</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#启用"><span class="toc-number">2.2.</span> <span class="toc-text">启用</span></a></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#写博客"><span class="toc-number">3.</span> <span class="toc-text">写博客</span></a></li></ol>
+		
+		</div>
+		
+		<p><strong>注</strong>：对文本的操作推荐用<a href="http://www.sublimetext.com/2" target="_blank" rel="noopener">Sublime Text 2</a>、<a href="http://notepad-plus-plus.org/" target="_blank" rel="noopener">notepad++</a>、<a href="https://www.editplus.com/download.html" target="_blank" rel="noopener">EditPlus</a>,不推荐用Word和Windows自带的记事本。Word保存的不是纯文本文件，而记事本会自作聪明地在文件开始的地方加上几个特殊字符（UTF-8 BOM），结果会导致程序运行出现莫名其妙的错误。如果文本文件中有中文的话，保存为utf-8的编码，不会有乱码。</p>
+<h2 id="部署博客到github上"><a href="#部署博客到github上" class="headerlink" title="部署博客到github上"></a>部署博客到github上</h2><p>用我推荐的文本编辑器打开_config.yml(如G:\hexo下)。你在部署时，要把下面的<em>shiping998</em>都换成你的账号名。<br><img src="/img/5.JPG" alt="Deployment"><br>先右击空白处选择Git Bash执行<br><figure class="highlight ebnf"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="attribute">hexo g</span></span><br></pre></td></tr></table></figure></p>
+<p>使修改生效，再执行<br><figure class="highlight ebnf"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="attribute">hexo d</span></span><br></pre></td></tr></table></figure></p>
+<p>遇到<img src="/img/6.JPG" alt="email">输入你注册github时的用户名，然后回车<br>下面就是输入github的密码<img src="/img/7.JPG" alt="password"> (<em>输入密码是不会显示，大胆的输就是了</em>)然后回车就提交成功了。你可以访问<a href="http://shiping998.github.io/">http://shiping998.github.io/</a>  （shiping998换成你的用户名）查看你的博客。</p>
+<p>每次提交都要输入账号密码，很麻烦。参看<br><a href="http://zipperary.com/2013/05/26/ssh-errors-with-github/" target="_blank" rel="noopener">重复输入用户名密码的问题</a>可以解决这个问题。</p>
+<h2 id="应用主题"><a href="#应用主题" class="headerlink" title="应用主题"></a>应用主题</h2><p>博客虽然建成了但是默认主题不好看，hexo提供了一些主题（相当于皮肤）使我们的博客看起来更高大上一些。例如我用的就是Pacman主题。大家可以在<a href="https://github.com/hexojs/hexo/wiki/Themes" target="_blank" rel="noopener">这里</a>看到hexo的各种主题。我比较推荐我用的Pacman主题或者是和它类似的Jacman主题。下面我以Pacman为例简要介绍一下如何安装和使用。</p>
+<h3 id="安装"><a href="#安装" class="headerlink" title="安装"></a>安装</h3><p>在Git Bash中输入<br><figure class="highlight crmsh"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">$ git <span class="keyword">clone</span> <span class="title">https</span>://github.com/A-limon/pacman.git themes/pacman</span><br></pre></td></tr></table></figure></p>
+<h3 id="启用"><a href="#启用" class="headerlink" title="启用"></a>启用</h3><p>修改你的博客根目录（hexo)下的_config.yml配置文件中的theme属性，将其设置为pacman。<br><img src="/img/8.JPG" alt="theme"><br>更多配置可以参看<a href="http://yangjian.me/workspace/introducing-pacman-theme/" target="_blank" rel="noopener">Pacman主题介绍</a></p>
+<hr>
+<p>如果你想使用Jacman主题，看以参看<a href="http://wuchong.me/blog/2014/11/20/how-to-use-jacman/" target="_blank" rel="noopener">如何使用 Jacman 主题</a></p>
+<h2 id="写博客"><a href="#写博客" class="headerlink" title="写博客"></a>写博客</h2><p>前面费了不少劲搭建博客，最终目的还是为了写博客。你可能会说就是直接写呗。但是hexo是使用markdown语法写博客的。不过不要担心，markdown 并不困难，它其实就是用一些符号来控制文本格式，和自然书写区别不大。下面我就讲一下如何写博客。<br>在Git Bash输入<br><figure class="highlight haxe"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">hexo <span class="keyword">new</span> <span class="type"></span>"my <span class="keyword">new</span> <span class="type">post</span>"</span><br></pre></td></tr></table></figure></p>
+<p>（my new post是标题，可以自己定义）就在hexo\source_posts中新建了一个my-new-post.md的文件，用我之前说的文本编辑器打开它，对它进行编辑就可以了。保存后，再依次执行<br><figure class="highlight ebnf"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line"><span class="attribute">hexo g</span></span><br><span class="line"><span class="attribute">hexo d</span></span><br></pre></td></tr></table></figure></p>
+<p>博客就有了一篇文章。<br>书写时要按照markdown的格式，可以使用在线的<a href="https://www.zybuluo.com" target="_blank" rel="noopener">markdown编辑器</a>进行编辑然后复制过去。语法很简单，可以看一下<a href="http://www.jianshu.com/p/q81RER" target="_blank" rel="noopener">献给写作者的 Markdown 新手指南</a>这篇教程。这篇教程本身就是在<a href="http://www.jianshu.com" target="_blank" rel="noopener">简书</a>上用markdown写成的，你也可以使用简书书写。<br>我再附上一张简明的图，使大家上手更快些。<img src="/img/9.JPG" alt="markdown"></p>
+<hr>
+<p>事实上如果你不想花钱，到这里就已经完成了博客的搭建。我的教程还有很多疏漏，更详细的教程可以参看<a href="http://zipperary.com/categories/hexo/" target="_blank" rel="noopener">hexo系列教程</a>。</p>
+<hr>
+<p>下一篇我将讲一下购买域名和绑定域名的问题。</p>
+  
+	</div>
+		<footer class="article-footer clearfix">
+<div class="article-catetags">
+
+<div class="article-categories">
+  <span></span>
+  <a class="article-category-link" href="/categories/建博客/">建博客</a>
+</div>
+
+
+  <div class="article-tags">
+  
+  <span></span> <a href="/tags/hexo/">hexo</a>
+  </div>
+
+</div>
+
+
+
+	<div class="article-share" id="share">
+	
+	  <div data-url="http://shiping998.github.io/2014/11/24/four/" data-title="使用hexo建立个人博客（四） | linjiangxian&#39;s blog" data-tsina="null" class="share clearfix">
+	  </div>
+	
+	</div>
+
+
+</footer>
+
+   	       
+	</article>
+	
+<nav class="article-nav clearfix">
+ 
+ <div class="prev" >
+ <a href="/2014/11/28/five/" title="使用hexo建立个人博客（五）购买域名、设置DNS">
+  <strong>上一篇：</strong><br/>
+  <span>
+  使用hexo建立个人博客（五）购买域名、设置DNS</span>
+</a>
+</div>
+
+
+<div class="next">
+<a href="/2014/11/16/three/"  title="使用hexo建立个人博客（三）hexo配置">
+ <strong>下一篇：</strong><br/> 
+ <span>使用hexo建立个人博客（三）hexo配置
+</span>
+</a>
+</div>
+
+</nav>
+
+	
+
+
+
+</div>  
+      <div class="openaside"><a class="navbutton" href="#" title="显示侧边栏"></a></div>
+
+  <div id="toc" class="toc-aside">
+  <strong class="toc-title">文章目录</strong>
+ 
+ <ol class="toc"><li class="toc-item toc-level-2"><a class="toc-link" href="#部署博客到github上"><span class="toc-number">1.</span> <span class="toc-text">部署博客到github上</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#应用主题"><span class="toc-number">2.</span> <span class="toc-text">应用主题</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#安装"><span class="toc-number">2.1.</span> <span class="toc-text">安装</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#启用"><span class="toc-number">2.2.</span> <span class="toc-text">启用</span></a></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#写博客"><span class="toc-number">3.</span> <span class="toc-text">写博客</span></a></li></ol>
+ 
+  </div>
+
+<div id="asidepart">
+<div class="closeaside"><a class="closebutton" href="#" title="隐藏侧边栏"></a></div>
+<aside class="clearfix">
+
+  
+
+
+  
+<div class="categorieslist">
+	<p class="asidetitle">分类</p>
+		<ul>
+		
+		  
+			<li><a href="/categories/建博客/" title="建博客">建博客<sup>5</sup></a></li>
+		  
+		
+		  
+			<li><a href="/categories/杂项/" title="杂项">杂项<sup>3</sup></a></li>
+		  
+		
+		  
+			<li><a href="/categories/随笔/" title="随笔">随笔<sup>1</sup></a></li>
+		  
+		
+		  
+			<li><a href="/categories/面试/" title="面试">面试<sup>1</sup></a></li>
+		  
+		
+		</ul>
+</div>
+
+
+  
+<div class="tagslist">
+	<p class="asidetitle">标签</p>
+		<ul class="clearfix">
+		
+			
+				<li><a href="/tags/hexo/" title="hexo">hexo<sup>5</sup></a></li>
+			
+		
+			
+				<li><a href="/tags/随笔/" title="随笔">随笔<sup>2</sup></a></li>
+			
+		
+			
+				<li><a href="/tags/shadowsocks/" title="shadowsocks">shadowsocks<sup>2</sup></a></li>
+			
+		
+			
+				<li><a href="/tags/ipv6/" title="ipv6">ipv6<sup>1</sup></a></li>
+			
+		
+			
+				<li><a href="/tags/免流量/" title="免流量">免流量<sup>1</sup></a></li>
+			
+		
+			
+				<li><a href="/tags/面试/" title="面试">面试<sup>1</sup></a></li>
+			
+		
+		</ul>
+</div>
+
+
+  <div class="linkslist">
+  <p class="asidetitle">友情链接</p>
+    <ul>
+        
+          <li>
+            
+            	<a href="https://coderq.com" target="_blank" title="一个面向程序员交流分享的新一代社区">码农圈</a>
+            
+          </li>
+        
+          <li>
+            
+            	<a href="http://wuchong.me" target="_blank" title="Jark&#39;s Blog">Jark&#39;s Blog</a>
+            
+          </li>
+        
+    </ul>
+</div>
+
+  
+
+
+  <div class="rsspart">
+	<a href="/atom.xml" target="_blank" title="rss">RSS 订阅</a>
+</div>
+
+  <div class="weiboshow">
+  <p class="asidetitle">新浪微博</p>
+    <iframe width="100%" height="119" class="share_self"  frameborder="0" scrolling="no" src="http://widget.weibo.com/weiboshow/index.php?language=&width=0&height=119&fansRow=2&ptype=1&speed=0&skin=9&isTitle=1&noborder=1&isWeibo=0&isFans=0&uid=null&verifier=b3593ceb&dpc=1"></iframe>
+</div>
+
+
+</aside>
+</div>
+    </div>
+    <footer><div id="footer" >
+	
+	<div class="line">
+		<span></span>
+		<div class="author"></div>
+	</div>
+	
+	
+	<section class="info">
+		<p> Hello ,I&#39;m Larry Page in Google. <br/>
+			This is my blog,believe it or not.</p>
+	</section>
+	 
+	<div class="social-font" class="clearfix">
+		
+		<a href="http://weibo.com/2176287895" target="_blank" class="icon-weibo" title="微博"></a>
+		
+		
+		
+		
+		
+		
+		
+		
+		
+		
+	</div>
+			
+		
+
+		<p class="copyright">
+		Powered by <a href="http://hexo.io" target="_blank" title="hexo">hexo</a> and Theme by <a href="https://github.com/wuchong/jacman" target="_blank" title="Jacman">Jacman</a> © 2019 
+		
+		<a href="/about" target="_blank" title="linjiangxian">linjiangxian</a>
+		
+		
+		</p>
+</div>
+</footer>
+    <script src="/js/jquery-2.0.3.min.js"></script>
+<script src="/js/jquery.imagesloaded.min.js"></script>
+<script src="/js/gallery.js"></script>
+<script src="/js/jquery.qrcode-0.12.0.min.js"></script>
+
+<script type="text/javascript">
+$(document).ready(function(){ 
+  $('.navbar').click(function(){
+    $('header nav').toggleClass('shownav');
+  });
+  var myWidth = 0;
+  function getSize(){
+    if( typeof( window.innerWidth ) == 'number' ) {
+      myWidth = window.innerWidth;
+    } else if( document.documentElement && document.documentElement.clientWidth) {
+      myWidth = document.documentElement.clientWidth;
+    };
+  };
+  var m = $('#main'),
+      a = $('#asidepart'),
+      c = $('.closeaside'),
+      o = $('.openaside');
+  c.click(function(){
+    a.addClass('fadeOut').css('display', 'none');
+    o.css('display', 'block').addClass('fadeIn');
+    m.addClass('moveMain');
+  });
+  o.click(function(){
+    o.css('display', 'none').removeClass('beforeFadeIn');
+    a.css('display', 'block').removeClass('fadeOut').addClass('fadeIn');      
+    m.removeClass('moveMain');
+  });
+  $(window).scroll(function(){
+    o.css("top",Math.max(80,260-$(this).scrollTop()));
+  });
+  
+  $(window).resize(function(){
+    getSize(); 
+    if (myWidth >= 1024) {
+      $('header nav').removeClass('shownav');
+    }else{
+      m.removeClass('moveMain');
+      a.css('display', 'block').removeClass('fadeOut');
+      o.css('display', 'none');
+      
+      $('#toc.toc-aside').css('display', 'none');
+        
+    }
+  });
+});
+</script>
+
+<script type="text/javascript">
+$(document).ready(function(){ 
+  var ai = $('.article-content>iframe'),
+      ae = $('.article-content>embed'),
+      t  = $('#toc'),
+      ta = $('#toc.toc-aside'),
+      o  = $('.openaside'),
+      c  = $('.closeaside');
+  if(ai.length>0){
+    ai.wrap('<div class="video-container" />');
+  };
+  if(ae.length>0){
+   ae.wrap('<div class="video-container" />');
+  };
+  c.click(function(){
+    ta.css('display', 'block').addClass('fadeIn');
+  });
+  o.click(function(){
+    ta.css('display', 'none');
+  });
+  $(window).scroll(function(){
+    ta.css("top",Math.max(140,320-$(this).scrollTop()));
+  });
+});
+</script>
+
+
+<script type="text/javascript">
+$(document).ready(function(){ 
+  var $this = $('.share'),
+      url = $this.attr('data-url'),
+      encodedUrl = encodeURIComponent(url),
+      title = $this.attr('data-title'),
+      tsina = $this.attr('data-tsina'),
+      description = $this.attr('description');
+  var html = [
+  '<div class="hoverqrcode clearfix"></div>',
+  '<a class="overlay" id="qrcode"></a>',
+  '<a href="https://www.facebook.com/sharer.php?u=' + encodedUrl + '" class="article-share-facebook" target="_blank" title="Facebook"></a>',
+  '<a href="https://twitter.com/intent/tweet?url=' + encodedUrl + '" class="article-share-twitter" target="_blank" title="Twitter"></a>',
+  '<a href="#qrcode" class="article-share-qrcode" title="微信"></a>',
+  '<a href="http://widget.renren.com/dialog/share?resourceUrl=' + encodedUrl + '&srcUrl=' + encodedUrl + '&title=' + title +'" class="article-share-renren" target="_blank" title="人人"></a>',
+  '<a href="http://service.weibo.com/share/share.php?title='+title+'&url='+encodedUrl +'&ralateUid='+ tsina +'&searchPic=true&style=number' +'" class="article-share-weibo" target="_blank" title="微博"></a>',
+  '<span title="Share to"></span>'
+  ].join('');
+  $this.append(html);
+
+  $('.hoverqrcode').hide();
+
+  var myWidth = 0;
+  function updatehoverqrcode(){
+    if( typeof( window.innerWidth ) == 'number' ) {
+      myWidth = window.innerWidth;
+    } else if( document.documentElement && document.documentElement.clientWidth) {
+      myWidth = document.documentElement.clientWidth;
+    };
+    var qrsize = myWidth > 1024 ? 200:100;
+    var options = {render: 'image', size: qrsize, fill: '#2ca6cb', text: url, radius: 0.5, quiet: 1};
+    var p = $('.article-share-qrcode').position();
+    $('.hoverqrcode').empty().css('width', qrsize).css('height', qrsize)
+                          .css('left', p.left-qrsize/2+20).css('top', p.top-qrsize-10)
+                          .qrcode(options);
+  };
+  $(window).resize(function(){
+    $('.hoverqrcode').hide();
+  });
+  $('.article-share-qrcode').click(function(){
+    updatehoverqrcode();
+    $('.hoverqrcode').toggle();
+  });
+  $('.article-share-qrcode').hover(function(){}, function(){
+      $('.hoverqrcode').hide();
+  });
+});   
+</script>
+
+
+
+
+
+
+
+
+
+
+
+<link rel="stylesheet" href="/fancybox/jquery.fancybox.css" media="screen" type="text/css">
+<script src="/fancybox/jquery.fancybox.pack.js"></script>
+<script type="text/javascript">
+$(document).ready(function(){ 
+  $('.article-content').each(function(i){
+    $(this).find('img').each(function(){
+      if ($(this).parent().hasClass('fancybox')) return;
+      var alt = this.alt;
+      if (alt) $(this).after('<span class="caption">' + alt + '</span>');
+      $(this).wrap('<a href="' + this.src + '" title="' + alt + '" class="fancybox"></a>');
+    });
+    $(this).find('.fancybox').each(function(){
+      $(this).attr('rel', 'article' + i);
+    });
+  });
+  if($.fancybox){
+    $('.fancybox').fancybox();
+  }
+}); 
+</script>
+
+
+
+<!-- Analytics Begin -->
+
+
+
+<script>
+var _hmt = _hmt || [];
+(function() {
+  var hm = document.createElement("script");
+  hm.src = "//hm.baidu.com/hm.js?e6d1f421bbc9962127a50488f9ed37d1";
+  var s = document.getElementsByTagName("script")[0]; 
+  s.parentNode.insertBefore(hm, s);
+})();
+</script>
+
+
+
+<!-- Analytics End -->
+
+<!-- Totop Begin -->
+
+	<div id="totop">
+	<a title="返回顶部"><img src="/img/scrollup.png"/></a>
+	</div>
+	<script src="/js/totop.js"></script>
+
+<!-- Totop End -->
+
+<!-- MathJax Begin -->
+<!-- mathjax config similar to math.stackexchange -->
+
+
+<!-- MathJax End -->
+
+<!-- Tiny_search Begin -->
+
+<!-- Tiny_search End -->
+
+  </body>
+</html>

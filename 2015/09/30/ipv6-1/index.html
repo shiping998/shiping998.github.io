@@ -1,0 +1,579 @@
+
+ <!DOCTYPE HTML>
+<html lang="zh-CN">
+<head><meta name="generator" content="Hexo 3.9.0">
+  <meta charset="UTF-8">
+  
+    <title>ipv6校园网免流量 | linjiangxian&#39;s blog</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1,user-scalable=no">
+    
+    <meta name="author" content="linjiangxian">
+    
+
+    
+    <meta name="description" content="我学校的校园网按10元6G收费，超出后3元1G，挺贵的。而ipv6的流量确实不计费的，国内的教育网都有ipv6，可以用来免费上网。效果肯定不如收费模式，但是还算比较稳定。 基本思路基本思路就是利用在服务器上搭建shadowsocks，本地填入服务器的ipv6地址，从而使得上网的流量全部走ipv6，来免流量上网。而国内的VPS基本没有ipv6，所以只能拿境外的服务器做代理，顺便有了一个番羽墙特效。">
+<meta name="keywords" content="shadowsocks,ipv6">
+<meta property="og:type" content="article">
+<meta property="og:title" content="ipv6校园网免流量">
+<meta property="og:url" content="http://shiping998.github.io/2015/09/30/ipv6-1/index.html">
+<meta property="og:site_name" content="linjiangxian&#39;s blog">
+<meta property="og:description" content="我学校的校园网按10元6G收费，超出后3元1G，挺贵的。而ipv6的流量确实不计费的，国内的教育网都有ipv6，可以用来免费上网。效果肯定不如收费模式，但是还算比较稳定。 基本思路基本思路就是利用在服务器上搭建shadowsocks，本地填入服务器的ipv6地址，从而使得上网的流量全部走ipv6，来免流量上网。而国内的VPS基本没有ipv6，所以只能拿境外的服务器做代理，顺便有了一个番羽墙特效。">
+<meta property="og:locale" content="zh-CN">
+<meta property="og:updated_time" content="2019-08-24T07:26:53.470Z">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:title" content="ipv6校园网免流量">
+<meta name="twitter:description" content="我学校的校园网按10元6G收费，超出后3元1G，挺贵的。而ipv6的流量确实不计费的，国内的教育网都有ipv6，可以用来免费上网。效果肯定不如收费模式，但是还算比较稳定。 基本思路基本思路就是利用在服务器上搭建shadowsocks，本地填入服务器的ipv6地址，从而使得上网的流量全部走ipv6，来免流量上网。而国内的VPS基本没有ipv6，所以只能拿境外的服务器做代理，顺便有了一个番羽墙特效。">
+
+    
+    <link rel="alternative" href="/atom.xml" title="linjiangxian&#39;s blog" type="application/atom+xml">
+    
+    
+    <link rel="icon" href="/img/favicon.ico">
+    
+    
+    <link rel="apple-touch-icon" href="/img/jacman.jpg">
+    <link rel="apple-touch-icon-precomposed" href="/img/jacman.jpg">
+    
+    <link rel="stylesheet" href="/css/style.css">
+</head>
+</html>
+  <body>
+    <header>
+      
+<div>
+		
+			<div id="imglogo">
+				<a href="/"><img src="/img/logo.png" alt="linjiangxian&#39;s blog" title="linjiangxian&#39;s blog"/></a>
+			</div>
+			
+			<div id="textlogo">
+				<h1 class="site-name"><a href="/" title="linjiangxian&#39;s blog">linjiangxian&#39;s blog</a></h1>
+				<h2 class="blog-motto">功难成而易败，机难得而易失</h2>
+			</div>
+			<div class="navbar"><a class="navbutton navmobile" href="#" title="菜单">
+			</a></div>
+			<nav class="animated">
+				<ul>
+					<ul>
+					 
+						<li><a href="/">Home</a></li>
+					
+						<li><a href="/archives">Archives</a></li>
+					
+						<li><a href="/about">About</a></li>
+					
+					<li>
+ 					
+					<form class="search" action="//google.com/search" method="get" accept-charset="utf-8">
+						<label>Search</label>
+						<input type="search" id="search" name="q" autocomplete="off" maxlength="20" placeholder="搜索" />
+						<input type="hidden" name="q" value="site:shiping998.github.io">
+					</form>
+					
+					</li>
+				</ul>
+			</nav>			
+</div>
+    </header>
+    <div id="container">
+      <div id="main" class="post" itemscope itemprop="blogPost">
+  
+	<article itemprop="articleBody"> 
+		<header class="article-info clearfix">
+  <h1 itemprop="name">
+    
+      <a href="/2015/09/30/ipv6-1/" title="ipv6校园网免流量" itemprop="url">ipv6校园网免流量</a>
+  </h1>
+  <p class="article-author">By
+       
+		<a href="/about" title="linjiangxian" target="_blank" itemprop="author">linjiangxian</a>
+		
+  <p class="article-time">
+    <time datetime="2015-09-30T14:18:28.000Z" itemprop="datePublished"> 发表于 2015-09-30</time>
+    
+  </p>
+</header>
+	<div class="article-content">
+		
+		<div id="toc" class="toc-article">
+			<strong class="toc-title">文章目录</strong>
+		
+			<ol class="toc"><li class="toc-item toc-level-2"><a class="toc-link" href="#基本思路"><span class="toc-number">1.</span> <span class="toc-text">基本思路</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#注册Digitalocean"><span class="toc-number">2.</span> <span class="toc-text">注册Digitalocean</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#安装shadowsocks"><span class="toc-number">3.</span> <span class="toc-text">安装shadowsocks</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#配置Shadowsocks"><span class="toc-number">4.</span> <span class="toc-text">配置Shadowsocks</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#其他完善"><span class="toc-number">5.</span> <span class="toc-text">其他完善</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#试用账号及使用方法"><span class="toc-number">6.</span> <span class="toc-text">试用账号及使用方法</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#傻瓜式方法"><span class="toc-number">7.</span> <span class="toc-text">傻瓜式方法</span></a></li></ol>
+		
+		</div>
+		
+		<p>我学校的校园网按10元6G收费，超出后3元1G，挺贵的。而ipv6的流量确实不计费的，国内的教育网都有ipv6，可以用来免费上网。效果肯定不如收费模式，但是还算比较稳定。</p>
+<h2 id="基本思路"><a href="#基本思路" class="headerlink" title="基本思路"></a>基本思路</h2><p>基本思路就是利用在服务器上搭建shadowsocks，本地填入服务器的ipv6地址，从而使得上网的流量全部走ipv6，来免流量上网。而国内的VPS基本没有ipv6，所以只能拿境外的服务器做代理，顺便有了一个<em>番羽墙</em>特效。</p>
+<h2 id="注册Digitalocean"><a href="#注册Digitalocean" class="headerlink" title="注册Digitalocean"></a>注册Digitalocean</h2><p>对于学生来说，为了节省费用，建议先认证github education，可以得到digitalocean的100美金优惠券。digitalocean最便宜的是5美元的一个月，自己只要花5美元就能激活账户，加上github送的100美金，差不多可以用两年。进入我的<a href="https://www.digitalocean.com/?refcode=c7f58a8dc827" target="_blank" rel="noopener">推广链接注册</a>的话，可以多获得10美元的优惠券。</p>
+<p>认证github education的方法请参考<a href="http://www.caoqq.net/github-pack.html" target="_blank" rel="noopener">学生免费享受 GitHub 提供的开发包</a>。</p>
+<h2 id="安装shadowsocks"><a href="#安装shadowsocks" class="headerlink" title="安装shadowsocks"></a>安装shadowsocks</h2><p>目前Shadowsocks服务器端拥有四种语言版本，分别是：</p>
+<ul>
+<li>Shadowsocks-Python</li>
+<li>Shadowsocks-libev</li>
+<li>Shadowsocks-Go</li>
+<li>Shadowsocks-NodeJS</li>
+</ul>
+<p>我装的是Shadowsocks-Python。<br>Linux发行版本，我选择的是Debian 7的32位版本。之所以选择这个是为了装后面的优化工具锐速。<br>digitalocean建立Droplets的过程可以参考这个<a href="http://www.zhihu.com/question/25261199" target="_blank" rel="noopener">清北校园网如何配置免流量ipv6环境?</a></p>
+<p>以下操作假定已经取得root权限下操作完成。</p>
+<figure class="highlight sql"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">apt-get <span class="keyword">update</span>  <span class="comment">#更新软件源</span></span><br><span class="line">apt-<span class="keyword">get</span> <span class="keyword">install</span> python-pip  <span class="comment">#安装pip包管理器</span></span><br><span class="line">pip <span class="keyword">install</span> shadowsocks</span><br><span class="line">apt-<span class="keyword">get</span> <span class="keyword">install</span> python-m2crypto     <span class="comment">#安装加密库</span></span><br></pre></td></tr></table></figure>
+<h2 id="配置Shadowsocks"><a href="#配置Shadowsocks" class="headerlink" title="配置Shadowsocks"></a>配置Shadowsocks</h2><figure class="highlight vim"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">apt-<span class="built_in">get</span> install <span class="keyword">vim</span>     #安装<span class="keyword">vim</span></span><br><span class="line"><span class="keyword">vim</span> /etc/shadowsocks.json #编辑配置文件</span><br></pre></td></tr></table></figure>
+<figure class="highlight json"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br></pre></td><td class="code"><pre><span class="line">&#123;</span><br><span class="line">    <span class="attr">"server"</span>:<span class="string">"::"</span>, </span><br><span class="line">    <span class="attr">"server_port"</span>:<span class="number">8388</span>,</span><br><span class="line">    <span class="attr">"local_address"</span>: <span class="string">"127.0.0.1"</span>,</span><br><span class="line">    <span class="attr">"local_port"</span>:<span class="number">1080</span>,</span><br><span class="line">    <span class="attr">"password"</span>:<span class="string">"mypassword"</span>,</span><br><span class="line">    <span class="attr">"timeout"</span>:<span class="number">300</span>,</span><br><span class="line">    <span class="attr">"method"</span>:<span class="string">"aes-256-cfb"</span>,</span><br><span class="line">    <span class="attr">"fast_open"</span>: <span class="literal">false</span></span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<table>
+<thead>
+<tr>
+<th>字段</th>
+<th>含义</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>server</td>
+<td>填写你的服务器ip地址</td>
+</tr>
+<tr>
+<td>server_port</td>
+<td>填写服务器的端口号</td>
+</tr>
+<tr>
+<td>local_port</td>
+<td>填写本地监听地址，一般为127.0.0.1</td>
+</tr>
+<tr>
+<td>local_port</td>
+<td>填写本地端口号（一般为1080）</td>
+</tr>
+<tr>
+<td>password</td>
+<td>填写你的Shadowsocks密码</td>
+</tr>
+<tr>
+<td>timeout</td>
+<td>超时时间，单位为秒</td>
+</tr>
+<tr>
+<td>method</td>
+<td>加密方式，推荐使用rc4-md5加密</td>
+</tr>
+<tr>
+<td>fast_open</td>
+<td>打开或者关闭TCP TASTOPEN</td>
+</tr>
+</tbody>
+</table>
+<h2 id="其他完善"><a href="#其他完善" class="headerlink" title="其他完善"></a>其他完善</h2><p>更多完善请参考<a href="http://notes.xiamo.tk/2015-06-17-Digitalocean%E9%85%8D%E7%BD%AEshadowsocks%E6%9C%8D%E5%8A%A1%E5%99%A8-%E4%BC%98%E5%8C%96%E7%AC%94%E8%AE%B0.html" target="_blank" rel="noopener">Digitalocean配置shadowsocks服务器、优化笔记</a></p>
+<h2 id="试用账号及使用方法"><a href="#试用账号及使用方法" class="headerlink" title="试用账号及使用方法"></a>试用账号及使用方法</h2><figure class="highlight css"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line"><span class="selector-tag">ip</span>地址： 2605<span class="selector-pseudo">:f700</span><span class="selector-pseudo">:40</span><span class="selector-pseudo">:c00</span><span class="selector-pseudo">::bc0c</span><span class="selector-pseudo">:a251</span></span><br><span class="line">端口  11810 </span><br><span class="line">密码 <span class="selector-tag">bTQ7qoD5</span> </span><br><span class="line">加密方式：<span class="selector-tag">aes-256-cfb</span></span><br></pre></td></tr></table></figure>
+<p>使用方法可以参考我前面的博客<a href="http://linjiangxian998.com/2014/11/29/six/" target="_blank" rel="noopener">科学上网新方法（附帐号）</a></p>
+<h2 id="傻瓜式方法"><a href="#傻瓜式方法" class="headerlink" title="傻瓜式方法"></a>傻瓜式方法</h2><p>上面的方法就是手工搭建免流量上网的过程，如果你还是觉得太麻烦，其实有一个偷懒的办法。就是直接买可以提供ipv6的shadowsocks账号。省去了搭建和优化的麻烦。我简单在谷歌上搜索了一下，找了个五个看起来满足条件，价格又不算贵的ss服务商。</p>
+<p><a href="http://www.fyzhuji.com/aff.php?aff=1438" target="_blank" rel="noopener">枫叶主机</a></p>
+<p><a href="http://xyv6.com/" target="_blank" rel="noopener">校园v6</a></p>
+<p><a href="http://www.shadowsu.com/shadowsocks.html" target="_blank" rel="noopener">ShadowSU</a></p>
+<p><a href="http://www.ssccsu.com/" target="_blank" rel="noopener">SSCC加速器</a></p>
+<p><a href="http://www.shadowss.net/" target="_blank" rel="noopener">SHADOWSS</a></p>
+<p>其中我买过枫叶主机的shadowsocks，我买的是中级套餐，当时是80元一年，一个月60G，有ipv6节点。现在涨价了变成了120一年。其他几家我也没买过，仅供参考。其中校园v6免费用户可以每个月免费使用3G流量，这个其他没有。</p>
+  
+	</div>
+		<footer class="article-footer clearfix">
+<div class="article-catetags">
+
+<div class="article-categories">
+  <span></span>
+  <a class="article-category-link" href="/categories/杂项/">杂项</a>
+</div>
+
+
+  <div class="article-tags">
+  
+  <span></span> <a href="/tags/shadowsocks/">shadowsocks</a><a href="/tags/ipv6/">ipv6</a>
+  </div>
+
+</div>
+
+
+
+	<div class="article-share" id="share">
+	
+	  <div data-url="http://shiping998.github.io/2015/09/30/ipv6-1/" data-title="ipv6校园网免流量 | linjiangxian&#39;s blog" data-tsina="null" class="share clearfix">
+	  </div>
+	
+	</div>
+
+
+</footer>
+
+   	       
+	</article>
+	
+<nav class="article-nav clearfix">
+ 
+ <div class="prev" >
+ <a href="/2015/10/16/npucat/" title="免流量上网之西工大的猫">
+  <strong>上一篇：</strong><br/>
+  <span>
+  免流量上网之西工大的猫</span>
+</a>
+</div>
+
+
+<div class="next">
+<a href="/2015/04/21/阿里实习生/"  title="阿里实习生面试">
+ <strong>下一篇：</strong><br/> 
+ <span>阿里实习生面试
+</span>
+</a>
+</div>
+
+</nav>
+
+	
+
+
+
+</div>  
+      <div class="openaside"><a class="navbutton" href="#" title="显示侧边栏"></a></div>
+
+  <div id="toc" class="toc-aside">
+  <strong class="toc-title">文章目录</strong>
+ 
+ <ol class="toc"><li class="toc-item toc-level-2"><a class="toc-link" href="#基本思路"><span class="toc-number">1.</span> <span class="toc-text">基本思路</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#注册Digitalocean"><span class="toc-number">2.</span> <span class="toc-text">注册Digitalocean</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#安装shadowsocks"><span class="toc-number">3.</span> <span class="toc-text">安装shadowsocks</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#配置Shadowsocks"><span class="toc-number">4.</span> <span class="toc-text">配置Shadowsocks</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#其他完善"><span class="toc-number">5.</span> <span class="toc-text">其他完善</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#试用账号及使用方法"><span class="toc-number">6.</span> <span class="toc-text">试用账号及使用方法</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#傻瓜式方法"><span class="toc-number">7.</span> <span class="toc-text">傻瓜式方法</span></a></li></ol>
+ 
+  </div>
+
+<div id="asidepart">
+<div class="closeaside"><a class="closebutton" href="#" title="隐藏侧边栏"></a></div>
+<aside class="clearfix">
+
+  
+
+
+  
+<div class="categorieslist">
+	<p class="asidetitle">分类</p>
+		<ul>
+		
+		  
+			<li><a href="/categories/建博客/" title="建博客">建博客<sup>5</sup></a></li>
+		  
+		
+		  
+			<li><a href="/categories/杂项/" title="杂项">杂项<sup>3</sup></a></li>
+		  
+		
+		  
+			<li><a href="/categories/随笔/" title="随笔">随笔<sup>1</sup></a></li>
+		  
+		
+		  
+			<li><a href="/categories/面试/" title="面试">面试<sup>1</sup></a></li>
+		  
+		
+		</ul>
+</div>
+
+
+  
+<div class="tagslist">
+	<p class="asidetitle">标签</p>
+		<ul class="clearfix">
+		
+			
+				<li><a href="/tags/hexo/" title="hexo">hexo<sup>5</sup></a></li>
+			
+		
+			
+				<li><a href="/tags/随笔/" title="随笔">随笔<sup>2</sup></a></li>
+			
+		
+			
+				<li><a href="/tags/shadowsocks/" title="shadowsocks">shadowsocks<sup>2</sup></a></li>
+			
+		
+			
+				<li><a href="/tags/ipv6/" title="ipv6">ipv6<sup>1</sup></a></li>
+			
+		
+			
+				<li><a href="/tags/免流量/" title="免流量">免流量<sup>1</sup></a></li>
+			
+		
+			
+				<li><a href="/tags/面试/" title="面试">面试<sup>1</sup></a></li>
+			
+		
+		</ul>
+</div>
+
+
+  <div class="linkslist">
+  <p class="asidetitle">友情链接</p>
+    <ul>
+        
+          <li>
+            
+            	<a href="https://coderq.com" target="_blank" title="一个面向程序员交流分享的新一代社区">码农圈</a>
+            
+          </li>
+        
+          <li>
+            
+            	<a href="http://wuchong.me" target="_blank" title="Jark&#39;s Blog">Jark&#39;s Blog</a>
+            
+          </li>
+        
+    </ul>
+</div>
+
+  
+
+
+  <div class="rsspart">
+	<a href="/atom.xml" target="_blank" title="rss">RSS 订阅</a>
+</div>
+
+  <div class="weiboshow">
+  <p class="asidetitle">新浪微博</p>
+    <iframe width="100%" height="119" class="share_self"  frameborder="0" scrolling="no" src="http://widget.weibo.com/weiboshow/index.php?language=&width=0&height=119&fansRow=2&ptype=1&speed=0&skin=9&isTitle=1&noborder=1&isWeibo=0&isFans=0&uid=null&verifier=b3593ceb&dpc=1"></iframe>
+</div>
+
+
+</aside>
+</div>
+    </div>
+    <footer><div id="footer" >
+	
+	<div class="line">
+		<span></span>
+		<div class="author"></div>
+	</div>
+	
+	
+	<section class="info">
+		<p> Hello ,I&#39;m Larry Page in Google. <br/>
+			This is my blog,believe it or not.</p>
+	</section>
+	 
+	<div class="social-font" class="clearfix">
+		
+		<a href="http://weibo.com/2176287895" target="_blank" class="icon-weibo" title="微博"></a>
+		
+		
+		
+		
+		
+		
+		
+		
+		
+		
+	</div>
+			
+		
+
+		<p class="copyright">
+		Powered by <a href="http://hexo.io" target="_blank" title="hexo">hexo</a> and Theme by <a href="https://github.com/wuchong/jacman" target="_blank" title="Jacman">Jacman</a> © 2019 
+		
+		<a href="/about" target="_blank" title="linjiangxian">linjiangxian</a>
+		
+		
+		</p>
+</div>
+</footer>
+    <script src="/js/jquery-2.0.3.min.js"></script>
+<script src="/js/jquery.imagesloaded.min.js"></script>
+<script src="/js/gallery.js"></script>
+<script src="/js/jquery.qrcode-0.12.0.min.js"></script>
+
+<script type="text/javascript">
+$(document).ready(function(){ 
+  $('.navbar').click(function(){
+    $('header nav').toggleClass('shownav');
+  });
+  var myWidth = 0;
+  function getSize(){
+    if( typeof( window.innerWidth ) == 'number' ) {
+      myWidth = window.innerWidth;
+    } else if( document.documentElement && document.documentElement.clientWidth) {
+      myWidth = document.documentElement.clientWidth;
+    };
+  };
+  var m = $('#main'),
+      a = $('#asidepart'),
+      c = $('.closeaside'),
+      o = $('.openaside');
+  c.click(function(){
+    a.addClass('fadeOut').css('display', 'none');
+    o.css('display', 'block').addClass('fadeIn');
+    m.addClass('moveMain');
+  });
+  o.click(function(){
+    o.css('display', 'none').removeClass('beforeFadeIn');
+    a.css('display', 'block').removeClass('fadeOut').addClass('fadeIn');      
+    m.removeClass('moveMain');
+  });
+  $(window).scroll(function(){
+    o.css("top",Math.max(80,260-$(this).scrollTop()));
+  });
+  
+  $(window).resize(function(){
+    getSize(); 
+    if (myWidth >= 1024) {
+      $('header nav').removeClass('shownav');
+    }else{
+      m.removeClass('moveMain');
+      a.css('display', 'block').removeClass('fadeOut');
+      o.css('display', 'none');
+      
+      $('#toc.toc-aside').css('display', 'none');
+        
+    }
+  });
+});
+</script>
+
+<script type="text/javascript">
+$(document).ready(function(){ 
+  var ai = $('.article-content>iframe'),
+      ae = $('.article-content>embed'),
+      t  = $('#toc'),
+      ta = $('#toc.toc-aside'),
+      o  = $('.openaside'),
+      c  = $('.closeaside');
+  if(ai.length>0){
+    ai.wrap('<div class="video-container" />');
+  };
+  if(ae.length>0){
+   ae.wrap('<div class="video-container" />');
+  };
+  c.click(function(){
+    ta.css('display', 'block').addClass('fadeIn');
+  });
+  o.click(function(){
+    ta.css('display', 'none');
+  });
+  $(window).scroll(function(){
+    ta.css("top",Math.max(140,320-$(this).scrollTop()));
+  });
+});
+</script>
+
+
+<script type="text/javascript">
+$(document).ready(function(){ 
+  var $this = $('.share'),
+      url = $this.attr('data-url'),
+      encodedUrl = encodeURIComponent(url),
+      title = $this.attr('data-title'),
+      tsina = $this.attr('data-tsina'),
+      description = $this.attr('description');
+  var html = [
+  '<div class="hoverqrcode clearfix"></div>',
+  '<a class="overlay" id="qrcode"></a>',
+  '<a href="https://www.facebook.com/sharer.php?u=' + encodedUrl + '" class="article-share-facebook" target="_blank" title="Facebook"></a>',
+  '<a href="https://twitter.com/intent/tweet?url=' + encodedUrl + '" class="article-share-twitter" target="_blank" title="Twitter"></a>',
+  '<a href="#qrcode" class="article-share-qrcode" title="微信"></a>',
+  '<a href="http://widget.renren.com/dialog/share?resourceUrl=' + encodedUrl + '&srcUrl=' + encodedUrl + '&title=' + title +'" class="article-share-renren" target="_blank" title="人人"></a>',
+  '<a href="http://service.weibo.com/share/share.php?title='+title+'&url='+encodedUrl +'&ralateUid='+ tsina +'&searchPic=true&style=number' +'" class="article-share-weibo" target="_blank" title="微博"></a>',
+  '<span title="Share to"></span>'
+  ].join('');
+  $this.append(html);
+
+  $('.hoverqrcode').hide();
+
+  var myWidth = 0;
+  function updatehoverqrcode(){
+    if( typeof( window.innerWidth ) == 'number' ) {
+      myWidth = window.innerWidth;
+    } else if( document.documentElement && document.documentElement.clientWidth) {
+      myWidth = document.documentElement.clientWidth;
+    };
+    var qrsize = myWidth > 1024 ? 200:100;
+    var options = {render: 'image', size: qrsize, fill: '#2ca6cb', text: url, radius: 0.5, quiet: 1};
+    var p = $('.article-share-qrcode').position();
+    $('.hoverqrcode').empty().css('width', qrsize).css('height', qrsize)
+                          .css('left', p.left-qrsize/2+20).css('top', p.top-qrsize-10)
+                          .qrcode(options);
+  };
+  $(window).resize(function(){
+    $('.hoverqrcode').hide();
+  });
+  $('.article-share-qrcode').click(function(){
+    updatehoverqrcode();
+    $('.hoverqrcode').toggle();
+  });
+  $('.article-share-qrcode').hover(function(){}, function(){
+      $('.hoverqrcode').hide();
+  });
+});   
+</script>
+
+
+
+
+
+
+
+
+
+
+
+<link rel="stylesheet" href="/fancybox/jquery.fancybox.css" media="screen" type="text/css">
+<script src="/fancybox/jquery.fancybox.pack.js"></script>
+<script type="text/javascript">
+$(document).ready(function(){ 
+  $('.article-content').each(function(i){
+    $(this).find('img').each(function(){
+      if ($(this).parent().hasClass('fancybox')) return;
+      var alt = this.alt;
+      if (alt) $(this).after('<span class="caption">' + alt + '</span>');
+      $(this).wrap('<a href="' + this.src + '" title="' + alt + '" class="fancybox"></a>');
+    });
+    $(this).find('.fancybox').each(function(){
+      $(this).attr('rel', 'article' + i);
+    });
+  });
+  if($.fancybox){
+    $('.fancybox').fancybox();
+  }
+}); 
+</script>
+
+
+
+<!-- Analytics Begin -->
+
+
+
+<script>
+var _hmt = _hmt || [];
+(function() {
+  var hm = document.createElement("script");
+  hm.src = "//hm.baidu.com/hm.js?e6d1f421bbc9962127a50488f9ed37d1";
+  var s = document.getElementsByTagName("script")[0]; 
+  s.parentNode.insertBefore(hm, s);
+})();
+</script>
+
+
+
+<!-- Analytics End -->
+
+<!-- Totop Begin -->
+
+	<div id="totop">
+	<a title="返回顶部"><img src="/img/scrollup.png"/></a>
+	</div>
+	<script src="/js/totop.js"></script>
+
+<!-- Totop End -->
+
+<!-- MathJax Begin -->
+<!-- mathjax config similar to math.stackexchange -->
+
+
+<!-- MathJax End -->
+
+<!-- Tiny_search Begin -->
+
+<!-- Tiny_search End -->
+
+  </body>
+</html>
